@@ -21,3 +21,5 @@ export const Navbar2 = () => {
     </div>
   );
 };
+
+//I can make multiple named exports from a file
