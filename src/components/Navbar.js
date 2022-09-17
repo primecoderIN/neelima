@@ -1,25 +1,13 @@
+import "./Navbar.css"
 export const Navbar = () => {
   return (
-    <div>
-      <div>
-        <h3>Brand Name</h3>
+    <div className="container">
+      <div className="main">
+        <h3 className="brandName">Brand Name</h3>
 
-        <span> Hello Ms Neelima</span>
+        <span className="user"> Hello Ms Neelima</span>
       </div>
     </div>
   );
 };
 
-export const Navbar2 = () => {
-  return (
-    <div>
-      <div>
-        <h3>Brand Name</h3>
-
-        <span> Hello Ms Neelima</span>
-      </div>
-    </div>
-  );
-};
-
-//I can make multiple named exports from a file

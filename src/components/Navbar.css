@@ -1,0 +1,20 @@
+.container {
+    height: 80px;
+    background-color: black;
+}
+
+.main{
+    height: 100%;
+    padding: 1rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brandName{
+    color: aliceblue;;
+}
+
+.user{
+    color: #fff;
+}
