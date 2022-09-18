@@ -1,27 +1,51 @@
-import {Navbar} from "./components/Navbar"
-import Sidebar from "./components/Sidebar"
+
 import './App.css';
+import {useState} from "react";
+import Component1 from './components/Component1';
+import Compoent2 from './components/Compoent2';
 
-//Rules of react and hooks 
+//State
 
-//Component name will start with capital letter only 
+//State is nothing a but variable to store data and preserve it during re-renders
+//A component can be stateful or stateless 
 
-//We can not return multiple elements from a react component
+//Prop 
 
-//Hooks can be called only inside a functional component and that too before return
+//Prop is an object which is shared between all the components of a component tree
+//Props are like transporter, it is used to pass data from one component to another component
 
-//You can not import something which does not exists in your project
+//Hooks
 
-//In react we do not use class we use className instead 
-
-//we do not use for in react we use htmlFor instead on label element
+//Hooks are nothing but function 
 
 function App() {
+  const [counter, setCounter] = useState(0);
+
+  //useState is also a function
+  //usestate adds a local state to a component
+  //When we call it, it returns us an array of two items
+  //When we call it, we may pass initial state also
+  //first item is the state
+  //second item is the function to update it
+  //Counter is local to App.js and can not be used outside of app.js
+
+
+
+
+  //Lifecycle 
+
+  //Mounting,unmounting and updation of a component is lifecyle 
+
+
+  //The code we write to be executed at this points are called lifecyle methods 
+
+
 
   return (
     <div className="App">
-      <Navbar />
-      <Sidebar />
+      <Component1 counter={counter} />
+      <Compoent2 counter={counter} />
+      <button onClick={() => setCounter(counter + 1)}>Increase</button>
     </div>
   );
 }
