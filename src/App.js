@@ -1,44 +1,56 @@
-import {useEffect,useState} from  "react"
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [count, setCount] = useState(0);
 
-  const [count,setCount] = useState(0)
-  const [counter,setCounter] = useState(0)
+  //UseEffects unmounts itself first then mount itself again when any dependency changes
 
-//useEffect is used to do side effects in react 
-// Anything happens outside of a component is side effect
-//Example of side effects are 1. Accessing data from local storage 2. Fetching data from server using api
+  useEffect(() => {
+    //The callback which we pass to useEffect is executed whenever
+    //component mounts or any dependency changes
+    document.title = `${count} Messages`;
 
-//like useState and other hook  useEffect is also a hook(function)
-//It accepts two paramnters 
-//first parameter is mandatory which is a function
-//second parameter is optional 
+    console.log("Updated count", count);
+    //Wr iting clean up function
 
-useEffect(()=> {
-  //This block of code will run on each re-render or on intial render 
-  //If any state changes in the component then it will trigger this useEffect
-  console.log("First useEffect")
-})
+    //This piece of code will be executed when useEffect unmounts/ or component unmounts
+    return () => {
+      console.log("I will be called when component unmounts");
+      console.log("Old count", count);
+    };
+  }, [count]);
 
-useEffect(() => {
-  //This block of code will run only once on initial mount of component
-  console.log("Second useEffect")
-},[]);
+  const makeApiCall = async () => {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+  };
 
+  useEffect(() => {
+    let timeout;
+    //Set interval returns an id which we are storing in timeout variable
+    //Which will be used to clear the setInterval
+    timeout = setInterval(makeApiCall, 3000);
 
-useEffect(() => {
-  //This useEffect will execute the code on intial render of component and also when count changes 
-  console.log("Third useEffect")
-  document.title = `${count} Messages`
-}, [count]);
+    //Before adding new setInterval we are clearing the previous setInterval added to browser
+    return () => clearInterval(timeout);
+  }, [count]);
+
+  useEffect(() => {
+    //We are attaching a click event listener to browser
+    //This listener will execute the callback each time user clicks on document
+    document.addEventListener("click", makeApiCall);
+
+    //We do not want duplicate event listeners so we are cleaning old event listenr
+    //Before adding new
+    return () => document.removeEventListener("click", makeApiCall);
+  }, [count]);
+
   return (
     <div className="App">
-      <h1>Count 1: {count}</h1>
+      <h1>Count: {count}</h1>
       <button onClick={() => setCount(count + 1)}>Increase</button>
-      <br></br>
-      <h1>Count 2: {counter}</h1>
-      <button onClick={() => setCounter(counter + 1)}>Increase</button>
     </div>
   );
 }
